@@ -51,6 +51,9 @@ int main(void) {
                 break;
         }
     }
+    if (state==AFTER_SLASH) {
+        putchar('/');
+    }
     if (state==IN_COMMENT || state==AFTER_STAR) {
         fprintf(stderr, "Error: line %i: unterminated comment\n", errorLine);
         return 1;
