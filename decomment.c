@@ -14,11 +14,14 @@ enum State handleBackslashChar(int c);
 enum State {NORMAL, AFTER_SLASH, IN_COMMENT, AFTER_STAR, IN_STRING, IN_CHAR, BACKSLASH_STRING, BACKSLASH_CHAR};
 
 int main(void) {
-    int lineCount = 0;
+    int lineCount = 1;
     int c;
     enum State state = NORMAL;
 
     while ((c=getchar())!=EOF) {
+        if (c=='\n') {
+            lineCount+=1;
+        }
         switch(state) {
             case NORMAL:
                 state = handleNormal(c);
@@ -84,9 +87,8 @@ enum State handleAfterSlash(int c) {
         putchar(' ');
     }
     else {
-        state=NORMAL;
         putchar('/');
-        putchar(c);
+        state = handleNormal(c);
     }
 
     return state;
