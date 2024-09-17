@@ -60,8 +60,6 @@ literal after slash
 new line after star
 
 
-check states
+TODO:
 warning
-line count without global variables
 delete character before (slash bug)
-return END_FAILURE

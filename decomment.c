@@ -9,8 +9,6 @@ enum State handleBackslashString(int c);
 enum State handleInChar(int c);
 enum State handleBackslashChar(int c);
 
-/* TODO: count lines, exit failure, character literals,  */
-
 enum State {NORMAL, AFTER_SLASH, IN_COMMENT, AFTER_STAR, IN_STRING, IN_CHAR, BACKSLASH_STRING, BACKSLASH_CHAR};
 
 int main(void) {
@@ -54,7 +52,8 @@ int main(void) {
         }
     }
     if (state==IN_COMMENT || state==AFTER_STAR) {
-        fprintf(stderr, "Error: line %i: unterminated comment", errorLine);
+        fprintf(stderr, "Error: line %i: unterminated comment\n", errorLine);
+        return 1;
     }
     else {
         return 0;
