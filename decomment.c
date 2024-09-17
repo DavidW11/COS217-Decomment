@@ -9,21 +9,15 @@ enum State handleBackslashString(int c);
 enum State handleInChar(int c);
 enum State handleBackslashChar(int c);
 
-// TODO: count lines, exit failure, character literals
+/* TODO: count lines, exit failure, character literals */
 
-// statetype constants
 enum State {NORMAL, AFTER_SLASH, IN_COMMENT, AFTER_STAR, IN_STRING, IN_CHAR, BACKSLASH_STRING, BACKSLASH_CHAR};
 
 int main(void) {
-    // initialize variables:
-    // number of lines read
     int lineCount = 0;
-    // current character
     int c;
-    // current state
     enum State state = NORMAL;
 
-    // while current character is not EOF
     while ((c=getchar())!=EOF) {
         switch(state) {
             case NORMAL:
@@ -52,17 +46,14 @@ int main(void) {
                 break;
         }
     }
-    // check for state and accept/reject
     if (state==IN_COMMENT || state==AFTER_STAR) {
         fprintf(stderr, "Error: line %i: unterminated comment", lineCount);
-        // return EXIT_FAILURE;
     }
     else {
         return 0;
     }
 }
 
-// state handling functions
 enum State handleNormal(int c) {
     enum State state;
 
