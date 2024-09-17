@@ -9,7 +9,7 @@ enum State handleBackslashString(int c);
 enum State handleInChar(int c);
 enum State handleBackslashChar(int c);
 
-/* TODO: count lines, exit failure, character literals */
+/* TODO: count lines, exit failure, character literals,  */
 
 enum State {NORMAL, AFTER_SLASH, IN_COMMENT, AFTER_STAR, IN_STRING, IN_CHAR, BACKSLASH_STRING, BACKSLASH_CHAR};
 
@@ -118,7 +118,7 @@ enum State handleAfterStar(int c) {
         state = NORMAL;
     }
     else {
-        state = IN_COMMENT;
+        state = handleInComment(c);
     }
 
     return state;
