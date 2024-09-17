@@ -15,12 +15,16 @@ enum State {NORMAL, AFTER_SLASH, IN_COMMENT, AFTER_STAR, IN_STRING, IN_CHAR, BAC
 
 int main(void) {
     int lineCount = 1;
+    int errorLine = 1;
     int c;
     enum State state = NORMAL;
 
     while ((c=getchar())!=EOF) {
         if (c=='\n') {
             lineCount+=1;
+        }
+        if (state!=IN_COMMENT && state!=AFTER_STAR) {
+            errorLine = lineCount;
         }
         switch(state) {
             case NORMAL:
@@ -50,7 +54,7 @@ int main(void) {
         }
     }
     if (state==IN_COMMENT || state==AFTER_STAR) {
-        fprintf(stderr, "Error: line %i: unterminated comment", lineCount);
+        fprintf(stderr, "Error: line %i: unterminated comment", errorLine);
     }
     else {
         return 0;

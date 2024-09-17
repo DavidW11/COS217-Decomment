@@ -58,3 +58,10 @@ slash at end of file
 multiple stars in row
 literal after slash
 new line after star
+
+
+check states
+warning
+line count without global variables
+delete character before (slash bug)
+return END_FAILURE
