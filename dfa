@@ -1,0 +1,35 @@
+
+NORMAL (accept) <-- start state
+    / : AFTER_SLASH (do not write character)
+    " : IN_STRING
+    ' : IN_CHAR
+    other : NORMAL
+
+AFTER_SLASH (accept)
+    * : IN_COMMENT (write space)
+    other : NORMAL (write slash and reprocess character)
+
+IN_COMMENT (reject)
+    * : AFTER_STAR (do not write char)
+    \n : IN_COMMENT (write new line)
+    other : IN_COMMENT (do not write char)
+
+AFTER_STAR (reject)
+    / : NORMAL
+    other: IN_COMMENT (reprocess character)
+
+IN_STRING (accept)
+    " : NORMAL
+    \ : BACKSLASH_STRING
+    other : IN_STRING
+
+BACKSLASH_STRING (accept)
+    any : IN_STRING
+
+IN_CHAR (accept)
+    ' : NORMAL
+    \ : BACKSLASH_CHAR
+    other : IN_CHAR
+
+BACKSLASH_CHAR (accept)
+    any : IN_CHAR
